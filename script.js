@@ -1,5 +1,6 @@
 const video = document.getElementById('video')
 
+// Load the models from the specified URI
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -7,6 +8,7 @@ Promise.all([
   faceapi.nets.faceExpressionNet.loadFromUri('/models')
 ]).then(startVideo)
 
+// Start the video stream from the user's webcam
 function startVideo() {
   navigator.getUserMedia(
     { video: {} },
@@ -15,6 +17,7 @@ function startVideo() {
   )
 }
 
+// When the video is playing, we start detecting faces and drawing on the canvas
 video.addEventListener('play', () => {
   const canvas = faceapi.createCanvasFromMedia(video)
   document.body.append(canvas)
